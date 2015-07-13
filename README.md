@@ -1,27 +1,23 @@
-# pdf-text
+# PDF2Text
 
-Extract text from a pdf into an array of text 'chunks'.  Useful for doing fuzzy parsing on structured pdf text.
+Extract text from a pdf into an array of pages / text arrays.  Useful for parsing on structured pdf text. Uses no external dependecies other than npm modules.
 
-Uses Mozilla's [pdf.js](http://mozilla.github.io/pdf.js/) via [pdf2json](https://github.com/modesty/pdf2json).
-
+Modified from Brian C's [pdf-text](https://github.com/brianc/node-pdf-text) and using Mozilla's [pdf.js](http://mozilla.github.io/pdf.js/) via [pdf2json](https://github.com/modesty/pdf2json).
 ## install
 
 ```sh
-$ npm install pdf-text
+npm install pdf-text
 ```
 
 ## use
 
 ```js
-var pdfText = require('pdf-text')
-
+var pdf2Text = require('pdf2text')
 var pathToPdf = __dirname + "/info.pdf"
 
-pdfText(pathToPdf, function(err, chunks) {
-  //chunks is an array of strings 
+pdf2Text(pathToPdf, function(err, pages) {
+  //pages is an array of string arrays 
   //loosely corresponding to text objects within the pdf
-
-  //for a more concrete example, view the test file in this repo
 })
 
 //or parse a buffer of pdf data
@@ -29,43 +25,42 @@ pdfText(pathToPdf, function(err, chunks) {
 //and don't want to write it to a temp file
 var fs = require('fs')
 var buffer = fs.readFileSync(pathToPdf)
-pdfText(buffer, function(err, chunks) {
+pdf2Text(buffer, function(err, pages) {
 
 })
+```
 
+Example output of parsing a W4 form:
+```
+[[ 'Form W-4 (2013)',
+    'Purpose. ',
+    'Complete Form W-4 so that your',
+    'employer can withhold the correct federal income',
+    'tax from your pay. Consider completing a new',
+    'Form ',
+    'W-4 each year and when your personal or',
+    'financial ',
+    'situation changes.',
+    'Exemption from withholding. ',
+    'If you are',
+    'exempt, ',
+    'complete ',
+    ' only  ',
+    'lines 1, 2, 3, 4, and 7',
+    'and sign the ',
+    ...
+  ],
+  [ ... ]
+]
 ```
 
 ## api
 
-#### pdfText(string pathToPdfFile, function callback(error, string[]))
+#### pdf2text(string pathToPdfFile, function callback(error, [string[]]))
 
-Callback receives `string[]` of all the text objects within the pdf.  The array is ordered similarly to how the text appears on the page, making it possible to extract key pieces by finding them based on how they relate to other 'known' pieces of text in the page.
+Callback receives `[string[]]` of all the text objects within the pdf.  The array is ordered similarly to how the text appears on the page, making it possible to extract key pieces by finding them based on how they relate to other 'known' pieces of text in the page.
 
-#### pdfText(Buffer bufferOfPdfContents, function callback(error, string[]))
+#### pdfText(Buffer bufferOfPdfContents, function callback(error, [string[]]))
 
 Optionally pass a buffer of pdf data instead of a path to the file.
-
-## license
-
-The MIT License (MIT)
-
-Copyright (c) 2013 Brian M. Carlson
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
 
