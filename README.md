@@ -55,13 +55,13 @@ Example output of parsing a W4 form:
 ]
 ```
 
-## api
+## Api
 
 #### pdf2text(string pathToPdfFile): `Promise.<Pages, Error>`
 
 Promise returns an array of Pages, which contains an array of all the strings on a page.  The array is ordered similarly to how the text appears on the page, making it possible to extract key pieces by finding them based on how they relate to other 'known' pieces of text in the page.
 
-#### pdfText(Buffer bufferOfPdfContents): `Promise.<Pages, Error>`
+#### pdf2Text(Buffer bufferOfPdfContents): `Promise.<Pages, Error>`
 
 Optionally pass a buffer of pdf data instead of a path to the file.
 
