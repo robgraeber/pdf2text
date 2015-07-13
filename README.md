@@ -55,7 +55,7 @@ Example output of parsing a W4 form:
 ]
 ```
 
-## Api
+## API
 
 #### pdf2text(string pathToPdfFile): `Promise.<Pages, Error>`
 
