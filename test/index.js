@@ -1,11 +1,9 @@
 var fs = require('fs');
-var ok = require('okay');
 var pdf2text = require('../');
 var assert = require('assert');
 
 var checkResult = function() {
     it('returns array of pages', function() {
-        console.log(this.pages);
         assert(Array.isArray(this.pages));
         assert(Array.isArray(this.pages[0]));
         assert(Array.isArray(this.pages[1]));
@@ -22,10 +20,10 @@ describe('pdf2text', function() {
     before(function(done) {
         var self = this;
 
-        pdf2text(__dirname + '/w4.pdf', ok(done, function(pages) {
+        pdf2text(__dirname + '/w4.pdf').then(function(pages) {
             self.pages = pages;
             done();
-        }));
+        });
     });
     checkResult.call(this);
 });
@@ -35,10 +33,10 @@ describe('pdf2text from buffer', function() {
         var self = this;
         var buffer = fs.readFileSync(__dirname + '/w4.pdf');
 
-        pdf2text(buffer, ok(done, function(pages) {
+        pdf2text(buffer).then(function(pages) {
             self.pages = pages;
             done();
-        }));
+        });
     });
     checkResult.call(this)
 });

@@ -1,6 +1,6 @@
 {
   "name": "pdf2text",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Extract an array of pages/text from a pdf",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
     "okay": "~0.3.0"
   },
   "dependencies": {
+    "bluebird": "^2.9.33",
     "lodash": "~2.3.0",
     "pdf3json": "0.2.0"
   }

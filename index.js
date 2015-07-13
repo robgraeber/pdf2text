@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var Promise = require('bluebird');
 var PDFParser = require('pdf3json');
 
 //clear the pdf logger
@@ -37,4 +38,4 @@ var PDF2Text = function(path, cb) {
     parser.loadPDF(path);
 };
 
-module.exports = PDF2Text;
+module.exports = Promise.promisify(PDF2Text);
